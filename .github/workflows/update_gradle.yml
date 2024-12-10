@@ -21,7 +21,13 @@ jobs:
         uses: gradle-update/update-gradle-wrapper-action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          labels: dependencies
+          set-distribution-checksum: true
+          release-channel: stable
+          pr-title-template: Update Gradle Wrapper from %sourceVersion% to %targetVersion%
+          commit-message-template: Update Gradle Wrapper from %sourceVersion% to %targetVersion%
+  
           #paths: */**
           #paths-ignore: sub-project/examples/**
-          #labels: dependencies
+
       - uses: gradle/actions/wrapper-validation@v4
