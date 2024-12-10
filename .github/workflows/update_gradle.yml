@@ -2,19 +2,24 @@ name: Update Gradle Wrapper
 
 on:
   workflow_dispatch:
-  
   schedule:
-    # every day at 2am
-    - cron: "30 5,17 * * *"
-  
+    # "weekly" https://crontab.guru/every-week
+    - cron: "0 0 * * 0"
+
 jobs:
   update-gradle-wrapper:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: 17
+          cache: 'gradle'
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v2
         with:
-          release-channel: release-candidate
+          repo-token: ${{ secrets.GH_ACTION_TOKEN }}
+          labels: dependencies
+      - uses: gradle/actions/wrapper-validation@v4
