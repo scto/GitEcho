@@ -20,6 +20,7 @@ jobs:
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v2
         with:
-          repo-token: ${{ secrets.GH_ACTION_TOKEN }}
+          with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           labels: dependencies
       - uses: gradle/actions/wrapper-validation@v4
